@@ -1,0 +1,429 @@
+{
+  "format": "tram-lab-1",
+  "scenario": "normal",
+  "elapsed": 15,
+  "version": "1.4",
+  "stop": 2,
+  "dir": 1,
+  "active": "def eta(distance_m, speed_mps, delay_s, status):\n    if status == \"broken\":\n        return None\n    if status == \"blocked\":\n        return None\n    if distance_m < 0:\n        return None\n    if distance_m == 0:\n        return 0\n    if speed_mps <= 0:\n        return None\n    return distance_m / speed_mps + delay_s",
+  "events": [
+    {
+      "tag": "start",
+      "msg": "Открыт стенд. Исходный скрипт ETA v1.4.",
+      "time": 0,
+      "scenario": "normal",
+      "version": "1.4",
+      "stop": 3,
+      "direction": 1
+    },
+    {
+      "tag": "reset",
+      "msg": "Сценарий возвращён к T+0",
+      "time": 0,
+      "scenario": "normal",
+      "version": "1.4",
+      "stop": 3,
+      "direction": 1
+    },
+    {
+      "tag": "scenario",
+      "msg": "Сценарий: Пробка",
+      "time": 0,
+      "scenario": "jam",
+      "version": "1.4",
+      "stop": 3,
+      "direction": 1
+    },
+    {
+      "tag": "script",
+      "msg": "Скрипт применён",
+      "time": 0,
+      "scenario": "jam",
+      "version": "1.4",
+      "stop": 3,
+      "direction": 1,
+      "code": "def eta(distance_m, speed_mps, delay_s, status):\n    if status == \"broken\":\n        return None\n    if status == \"blocked\":\n        return None\n    if distance_m < 0:\n        return None\n    if distance_m == 0:\n        return 0\n    if speed_mps <= 0:\n        return None\n    return distance_m / speed_mps + delay_s"
+    },
+    {
+      "tag": "checks",
+      "msg": "Проверки: 9/9",
+      "time": 0,
+      "scenario": "jam",
+      "version": "1.4",
+      "stop": 3,
+      "direction": 1,
+      "checks": [
+        {
+          "name": "Норма",
+          "expected": 75,
+          "seen": 75,
+          "pass": true
+        },
+        {
+          "name": "Пробка: скорость и задержка",
+          "expected": 315,
+          "seen": 315,
+          "pass": true
+        },
+        {
+          "name": "Поломка даже при устаревшей ненулевой скорости",
+          "expected": null,
+          "seen": null,
+          "pass": true
+        },
+        {
+          "name": "Перекрытие без известного времени",
+          "expected": null,
+          "seen": null,
+          "pass": true
+        },
+        {
+          "name": "Остановка уже позади",
+          "expected": null,
+          "seen": null,
+          "pass": true
+        },
+        {
+          "name": "Трамвай у остановки",
+          "expected": 0,
+          "seen": 0,
+          "pass": true
+        },
+        {
+          "name": "Нулевая скорость до остановки",
+          "expected": null,
+          "seen": null,
+          "pass": true
+        },
+        {
+          "name": "Направление и движение вагона 701",
+          "expected": 1,
+          "seen": 1,
+          "pass": true
+        },
+        {
+          "name": "Направление и движение вагона 702",
+          "expected": -1,
+          "seen": -1,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "tag": "note",
+      "msg": "Проверены граничные случаи для функции ETA. Для вагона на остановке (0 м, 0 м/с) возвращается 0. Для стоящего вагона до остановки (900 м, 0 м/с) и для вагона, проехавшего остановку (-900 м), возвращается None. Логика контракта соблюдена.",
+      "time": 0,
+      "scenario": "jam",
+      "version": "1.4",
+      "stop": 3,
+      "direction": 1,
+      "evidence": [
+        {
+          "id": 701,
+          "pos": 1800,
+          "boardPosition": 1800,
+          "rawDirection": 1,
+          "boardDirection": 1,
+          "distance": 900,
+          "speed": 4,
+          "delay": 90,
+          "status": "moving",
+          "eta": 315
+        },
+        {
+          "id": 703,
+          "pos": 900,
+          "boardPosition": 900,
+          "rawDirection": 1,
+          "boardDirection": 1,
+          "distance": 1800,
+          "speed": 10,
+          "delay": 0,
+          "status": "moving",
+          "eta": 180
+        },
+        {
+          "id": 705,
+          "pos": 3460,
+          "boardPosition": 3460,
+          "rawDirection": 1,
+          "boardDirection": 1,
+          "distance": -760,
+          "speed": 11,
+          "delay": 0,
+          "status": "moving",
+          "eta": null
+        },
+        {
+          "id": 702,
+          "pos": 3420,
+          "boardPosition": 3420,
+          "rawDirection": -1,
+          "boardDirection": -1,
+          "distance": 720,
+          "speed": 9,
+          "delay": 0,
+          "status": "moving",
+          "eta": 80
+        },
+        {
+          "id": 704,
+          "pos": 4860,
+          "boardPosition": 4860,
+          "rawDirection": -1,
+          "boardDirection": -1,
+          "distance": 2160,
+          "speed": 10,
+          "delay": 0,
+          "status": "moving",
+          "eta": 216
+        }
+      ]
+    },
+    {
+      "tag": "scenario",
+      "msg": "Сценарий: Обычное движение",
+      "time": 0,
+      "scenario": "normal",
+      "version": "1.4",
+      "stop": 3,
+      "direction": 1
+    },
+    {
+      "tag": "version",
+      "msg": "Активирована версия 1.5",
+      "time": 0,
+      "scenario": "normal",
+      "version": "1.5",
+      "stop": 3,
+      "direction": 1
+    },
+    {
+      "tag": "reset",
+      "msg": "Сценарий возвращён к T+0",
+      "time": 0,
+      "scenario": "normal",
+      "version": "1.5",
+      "stop": 3,
+      "direction": 1
+    },
+    {
+      "tag": "step",
+      "msg": "Шаг модели +15 с",
+      "time": 15,
+      "scenario": "normal",
+      "version": "1.5",
+      "stop": 3,
+      "direction": 1
+    },
+    {
+      "tag": "checks",
+      "msg": "Проверки: 7/9",
+      "time": 15,
+      "scenario": "normal",
+      "version": "1.5",
+      "stop": 3,
+      "direction": 1,
+      "checks": [
+        {
+          "name": "Норма",
+          "expected": 75,
+          "seen": 75,
+          "pass": true
+        },
+        {
+          "name": "Пробка: скорость и задержка",
+          "expected": 315,
+          "seen": 315,
+          "pass": true
+        },
+        {
+          "name": "Поломка даже при устаревшей ненулевой скорости",
+          "expected": null,
+          "seen": null,
+          "pass": true
+        },
+        {
+          "name": "Перекрытие без известного времени",
+          "expected": null,
+          "seen": null,
+          "pass": true
+        },
+        {
+          "name": "Остановка уже позади",
+          "expected": null,
+          "seen": null,
+          "pass": true
+        },
+        {
+          "name": "Трамвай у остановки",
+          "expected": 0,
+          "seen": 0,
+          "pass": true
+        },
+        {
+          "name": "Нулевая скорость до остановки",
+          "expected": null,
+          "seen": null,
+          "pass": true
+        },
+        {
+          "name": "Направление и движение вагона 701",
+          "expected": 1,
+          "seen": -1,
+          "pass": false
+        },
+        {
+          "name": "Направление и движение вагона 702",
+          "expected": -1,
+          "seen": 1,
+          "pass": false
+        }
+      ]
+    },
+    {
+      "tag": "version",
+      "msg": "Активирована версия 1.4",
+      "time": 15,
+      "scenario": "normal",
+      "version": "1.4",
+      "stop": 3,
+      "direction": 1
+    },
+    {
+      "tag": "scenario",
+      "msg": "Сценарий: Пробка",
+      "time": 0,
+      "scenario": "jam",
+      "version": "1.4",
+      "stop": 3,
+      "direction": 1
+    },
+    {
+      "tag": "scenario",
+      "msg": "Сценарий: Поломка",
+      "time": 0,
+      "scenario": "broken",
+      "version": "1.4",
+      "stop": 3,
+      "direction": 1
+    },
+    {
+      "tag": "scenario",
+      "msg": "Сценарий: Обычное движение",
+      "time": 0,
+      "scenario": "normal",
+      "version": "1.4",
+      "stop": 2,
+      "direction": 1
+    },
+    {
+      "tag": "reset",
+      "msg": "Сценарий возвращён к T+0",
+      "time": 0,
+      "scenario": "normal",
+      "version": "1.4",
+      "stop": 2,
+      "direction": 1
+    },
+    {
+      "tag": "step",
+      "msg": "Шаг модели +15 с",
+      "time": 15,
+      "scenario": "normal",
+      "version": "1.4",
+      "stop": 2,
+      "direction": 1
+    },
+    {
+      "tag": "reset",
+      "msg": "Сценарий возвращён к T+0",
+      "time": 0,
+      "scenario": "normal",
+      "version": "1.4",
+      "stop": 2,
+      "direction": 1
+    },
+    {
+      "tag": "step",
+      "msg": "Шаг модели +15 с",
+      "time": 15,
+      "scenario": "normal",
+      "version": "1.4",
+      "stop": 2,
+      "direction": 1
+    },
+    {
+      "tag": "note",
+      "msg": "Независимый прогон (остановка «Рынок», К Депо). Вагон 703 на T+0: расстояние 900 м, ETA 90 с (2 мин). После шага +15 с: расстояние 750 м, ETA 75 с (2 мин). Ожидание совпало с фактом.",
+      "time": 15,
+      "scenario": "normal",
+      "version": "1.4",
+      "stop": 2,
+      "direction": 1,
+      "evidence": [
+        {
+          "id": 701,
+          "pos": 1980,
+          "boardPosition": 1980,
+          "rawDirection": 1,
+          "boardDirection": 1,
+          "distance": -180,
+          "speed": 12,
+          "delay": 0,
+          "status": "moving",
+          "eta": null
+        },
+        {
+          "id": 703,
+          "pos": 1050,
+          "boardPosition": 1050,
+          "rawDirection": 1,
+          "boardDirection": 1,
+          "distance": 750,
+          "speed": 10,
+          "delay": 0,
+          "status": "moving",
+          "eta": 75
+        },
+        {
+          "id": 705,
+          "pos": 3625,
+          "boardPosition": 3625,
+          "rawDirection": 1,
+          "boardDirection": 1,
+          "distance": -1825,
+          "speed": 11,
+          "delay": 0,
+          "status": "moving",
+          "eta": null
+        },
+        {
+          "id": 702,
+          "pos": 3285,
+          "boardPosition": 3285,
+          "rawDirection": -1,
+          "boardDirection": -1,
+          "distance": 1485,
+          "speed": 9,
+          "delay": 0,
+          "status": "moving",
+          "eta": 165
+        },
+        {
+          "id": 704,
+          "pos": 4710,
+          "boardPosition": 4710,
+          "rawDirection": -1,
+          "boardDirection": -1,
+          "distance": 2910,
+          "speed": 10,
+          "delay": 0,
+          "status": "moving",
+          "eta": 291
+        }
+      ]
+    }
+  ],
+  "draft": "def eta(distance_m, speed_mps, delay_s, status):\n    if status == \"broken\":\n        return None\n    if status == \"blocked\":\n        return None\n    if distance_m < 0:\n        return None\n    if distance_m == 0:\n        return 0\n    if speed_mps <= 0:\n        return None\n    return distance_m / speed_mps + delay_s"
+}
